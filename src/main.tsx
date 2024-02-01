@@ -20,7 +20,8 @@ const routeTree = rootRoute.addChildren([
 
 
 const router = createRouter({
-  routeTree
+  routeTree,
+  basepath: "/bother/"
 });
 
 // Register things for typesafetyobo
