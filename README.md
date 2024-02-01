@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+<div align="center">
+  <img src="https://github.com/d4mr/bother/assets/16459486/82236713-780b-4aec-8b5a-c3f7d5bea10c" height="80" width="80">
+  <h3 align="center">bother</h3>
+  <p align="center">bother is a free open source toolkit for batch processing images in the browser.</p>
+</div>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/d4mr/bother/assets/16459486/a6d3184d-c015-4484-b095-f48f9390719f)
 
-Currently, two official plugins are available:
+## features
+Current bother supports only padding, but slicing is being developed actively.
+### padding
+padding tool allows you to add borders to images (supports batch processing) to get them all to the same target aspect ratio.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+use cases include adding white borders to images to make them square, eg, for instagram. you can choose to add padding on the non-dominant axis too, see a live preview, and download the images individually or as a zip file.
 
-## Expanding the ESLint configuration
+### slicing
+the slicing tools allows extraction of multiple images from within the same image. this goes beyond parametric grid based splitting of images, instead it uses image processing to calculate possible bounding boxes for images.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+the ideal use case is scanning albums or polaroids, where each scanned page has multiple images
 
-- Configure the top-level `parserOptions` property like this:
+image processing first utilises gpu accelerated canny edge detection, and then probablistic hough line transforms to detect lines. these lines are then used to calculate possible bounding boxes for images.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+bounding boxes can be adjusted before export.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+optionally, all extracted images can be loaded to padding, for aspect ratio to be corrected before final export.
+
+## why bother?
+bother was born out of a need to add white borders to images to make
+them square, but the process was very bothersome.
+
+existing tools didn't allow for batch processing. some others required
+uploading to servers which introduced unnecessary latency and
+bottlenecks, especially since browsers today are a more than capable
+platform for performing these operations locally on the client.
+tools are ad-ridden, have shoddy ui, usage limits, etc. you get the
+idea.
+
+bother runs entirely on your browser, and doesn't require any
+registration or payment. it's free and open source.
