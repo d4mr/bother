@@ -1,10 +1,7 @@
-<div align="center">
-  <img src="https://github.com/d4mr/bother/assets/16459486/82236713-780b-4aec-8b5a-c3f7d5bea10c" height="80" width="80">
-  <h3 align="center">bother</h3>
-  <p align="center">bother is a free open source toolkit for batch processing images in the browser.</p>
-</div>
+![image](https://res.cloudinary.com/dr2xlumqw/image/upload/f_auto,q_auto/ne7yhkhxrl7yn3ekxpla)
 
-![image](https://github.com/d4mr/bother/assets/16459486/a6d3184d-c015-4484-b095-f48f9390719f)
+# bother
+bother is a free open source toolkit for batch processing images in the browser.
 
 ## features
 > [!IMPORTANT]
