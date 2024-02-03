@@ -3,6 +3,8 @@
 # bother
 bother is a free open source toolkit for batch processing images in the browser.
 
+try it live at https://d4mr.github.io/bother
+
 ## features
 > [!IMPORTANT]
 > Current bother supports only padding, but slicing is being developed actively.
