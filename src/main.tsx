@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import { indexRoute, rootRoute } from "./App"
+import { indexRoute, rootRoute } from "./App";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { ThemeProvider } from "./context/Theme";
 import { aboutRoute } from "./About";
@@ -10,18 +10,15 @@ import { slicingRoute } from "./tools/slicing";
 import { CursorProvider } from "./context/Cursor";
 import { Toaster } from "./components/ui/sonner";
 
-
-
 const routeTree = rootRoute.addChildren([
   aboutRoute,
   indexRoute,
   toolsRoute.addChildren([paddingRoute, slicingRoute]),
 ]);
 
-
 const router = createRouter({
   routeTree,
-  basepath: "/bother/"
+  basepath: "/bother/",
 });
 
 // Register things for typesafetyobo

@@ -6,9 +6,7 @@ import path from "path";
 export default defineConfig({
   plugins: [
     react({
-      plugins: [
-        ["@swc-jotai/react-refresh",{}]
-      ]
+      plugins: [["@swc-jotai/react-refresh", {}]],
     }),
   ],
   resolve: {
@@ -16,5 +14,5 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  base:"/bother/"
+  base: "/bother/",
 });
