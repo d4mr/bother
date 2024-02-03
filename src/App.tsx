@@ -10,7 +10,7 @@ import {
 } from "./components/ui/card";
 
 import { BoxSelect, PocketKnife } from "lucide-react";
-import React from "react";
+import React, { Suspense } from "react";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -29,7 +29,9 @@ export const rootRoute = createRootRoute({
     <>
       <Navbar />
       <Outlet />
-      <TanStackRouterDevtools />
+      <Suspense>
+        <TanStackRouterDevtools />
+      </Suspense>
     </>
   ),
 });
