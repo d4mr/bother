@@ -1,14 +1,14 @@
-import React, { Suspense } from "react";
-import ReactDOM from "react-dom/client";
-import { indexRoute, rootRoute } from "./App";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { ThemeProvider } from "./context/Theme";
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { aboutRoute } from "./About";
+import { indexRoute, rootRoute } from "./App";
+import { Toaster } from "./components/ui/sonner";
+import { CursorProvider } from "./context/Cursor";
+import { ThemeProvider } from "./context/Theme";
 import { toolsRoute } from "./tools";
 import { paddingRoute } from "./tools/padding";
 import { slicingRoute } from "./tools/slicing";
-import { CursorProvider } from "./context/Cursor";
-import { Toaster } from "./components/ui/sonner";
 
 const routeTree = rootRoute.addChildren([
   aboutRoute,
