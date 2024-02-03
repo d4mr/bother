@@ -10,7 +10,7 @@ bother is a free open source toolkit for batch processing images in the browser.
 ### padding
 padding tool allows adding borders to images (supports batch processing) to get them all to the same target aspect ratio.
 
-![Frame 1 (5)](https://github.com/d4mr/bother/assets/16459486/047c5744-801f-4741-af55-9e0af56ebba1)
+![padding demo image](https://res.cloudinary.com/dr2xlumqw/image/upload/f_auto,q_auto/wrlthx1td8bk6f06wrii)
 
 use cases include adding white borders to images to make them square, eg, for instagram. you can choose to add padding on the non-dominant axis too, see a live preview, and download the images individually or as a zip file.
 
