@@ -1,6 +1,6 @@
 import { createRoute } from "@tanstack/react-router";
 import { useAtom, useAtomValue } from "jotai";
-import React, { Suspense } from "react";
+import React, { Suspense, useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,13 +28,51 @@ import {
   paddingCurrentFileBitmapAtom,
   paddingCurrentFileIndexAtom,
   paddingFilesAtom,
+  paddingOptionsAtom,
 } from "./store";
+import { BotherImage } from "@/lib/bother";
 
 interface IPaddingProps {}
 
 function CurrentImageMetadata() {
   const currentFileBitmap = useAtomValue(paddingCurrentFileBitmapAtom);
   const currentFile = useAtomValue(paddingCurrentFileAtom);
+  const options = useAtomValue(paddingOptionsAtom);
+
+  // TODO: try to move just the calculations to store
+  const bi = useMemo(() => {
+    if (!currentFileBitmap) return;
+
+    const overridenOptions = {
+      nonDominantPadding:
+        currentFile?.nonDominantPadding ?? options.globalNonDominantPadding,
+      color: currentFile?.color ?? options.globalColor,
+    };
+
+    const bi = new BotherImage(currentFileBitmap);
+    const targetAspectRatio = options.targetAspectRatio;
+    const currentAspectRatio =
+      currentFileBitmap.width / currentFileBitmap.height;
+
+    bi.setPadding(
+      currentFile?.color ?? options.globalColor,
+      currentAspectRatio > targetAspectRatio
+        ? {
+            e: overridenOptions.nonDominantPadding,
+            w: overridenOptions.nonDominantPadding,
+          }
+        : {
+            n: overridenOptions.nonDominantPadding,
+            s: overridenOptions.nonDominantPadding,
+          }
+    );
+
+    bi.toAspectRatio(targetAspectRatio, {
+      color: currentFile?.color ?? options.globalColor,
+    });
+
+    return bi;
+  }, [options, currentFileBitmap, currentFile]);
 
   if (!currentFile || !currentFileBitmap) return <></>;
 
@@ -53,6 +91,20 @@ function CurrentImageMetadata() {
         <span className="mr-auto">original file size</span>
         <span className="font-mono">
           {formatFileSize(currentFile.file.size)}
+        </span>
+      </div>
+      <div className="odd:bg-accent/50 py-1 px-4 grid grid-cols-2">
+        <span className="mr-auto">new file width</span>
+        <span className="font-mono">{bi?.width}</span>
+      </div>
+      <div className="odd:bg-accent/50 py-1 px-4 grid grid-cols-2">
+        <span className="mr-auto">new file height</span>
+        <span className="font-mono">{bi?.height}</span>
+      </div>
+      <div className="odd:bg-accent/50 py-1 px-4 grid grid-cols-2">
+        <span className="mr-auto">actual aspect ratio</span>
+        <span className="font-mono">
+          {bi?.width && bi.height ? (bi.width / bi.height).toFixed(5) : "..."}
         </span>
       </div>
     </div>

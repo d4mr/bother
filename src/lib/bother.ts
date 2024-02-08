@@ -37,22 +37,22 @@ export class BotherImage {
   public paddingColor: string = "#ffffff";
 
   public get width(): number {
-    return (
+    return Math.floor(
       this.image.width +
-      this.padding.e +
-      this.padding.w +
-      this.margin.e +
-      this.margin.w
+        this.padding.e +
+        this.padding.w +
+        this.margin.e +
+        this.margin.w
     );
   }
 
   public get height(): number {
-    return (
+    return Math.floor(
       this.image.height +
-      this.padding.n +
-      this.padding.s +
-      this.margin.n +
-      this.margin.s
+        this.padding.n +
+        this.padding.s +
+        this.margin.n +
+        this.margin.s
     );
   }
 
