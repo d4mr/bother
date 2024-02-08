@@ -15,27 +15,28 @@ const DragNumberInputLabel: React.FC<IDragNumberInputProps> = ({
   ...props
 }) => {
   const [isDragging, setIsDragging] = React.useState(false);
-  const [lastX, setLastX] = React.useState<number>(0);
   const labelRef = React.useRef<HTMLLabelElement | null>(null);
 
   return (
     <Label
       ref={labelRef}
-      onMouseDown={(e) => {
-        labelRef.current?.setPointerCapture(1);
+      onMouseDown={() => {
+        labelRef.current?.requestPointerLock();
         setIsDragging(true);
-        setLastX(e.clientX);
       }}
       onMouseMove={(e) => {
         if (!isDragging) return;
-        onSlide?.(e.clientX - lastX);
-        setLastX(e.clientX);
+        onSlide?.(e.movementX);
       }}
       onMouseUp={() => {
         setIsDragging(false);
-        labelRef.current?.releasePointerCapture(1);
+        document.exitPointerLock();
       }}
-      className={cn("cursor-ew-resize select-none ", className)}
+      className={cn(
+        "cursor-ew-resize select-none",
+        isDragging && "font-semibold",
+        className
+      )}
       {...props}
     >
       {children}
