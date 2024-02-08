@@ -52,7 +52,6 @@ const PaddingOptions: React.FunctionComponent<IPaddingOptionsProps> = () => {
         });
 
         const blob = await bi.renderToBlob();
-        console.log(blob);
         await zipWriter.add(file.file.name, new BlobReader(blob));
       })
     );
