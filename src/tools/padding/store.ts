@@ -51,13 +51,10 @@ export const paddingCurrentFileAtom = atom<
     return files[index];
   },
   (get, set, arg) => {
-    console.log("setter called");
     const files = get(paddingFilesAtom);
     const index = get(paddingCurrentFileIndexAtom);
     if (!arg) return;
 
-    console.log("index", index);
-    console.log("files", files);
     if (
       index === null ||
       index < 0 ||
