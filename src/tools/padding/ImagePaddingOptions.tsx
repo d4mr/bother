@@ -1,8 +1,14 @@
+import DragNumberInputLabel from "@/components/DragNumberInputLabel";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAtom, useAtomValue } from "jotai";
 import * as React from "react";
-import { paddingCurrentFileOptionsAtom, paddingOptionsAtom } from "./store";
+import {
+  paddingCurrentFileAtom,
+  paddingCurrentFileOptionsAtom,
+  paddingOptionsAtom,
+} from "./store";
+import { Button } from "@/components/ui/button";
 
 interface IImagePaddingOptionsProps {}
 
@@ -12,16 +18,32 @@ const ImagePaddingOptions: React.FunctionComponent<
   const [currentOptions, setCurrentOptions] = useAtom(
     paddingCurrentFileOptionsAtom
   );
+  const currentImage = useAtomValue(paddingCurrentFileAtom);
   const options = useAtomValue(paddingOptionsAtom);
 
-  if (!currentOptions) return <></>;
+  if (!currentImage)
+    return (
+      <p className="text-sm p-8 text-muted-foreground">
+        select image to override global options for that specific image
+      </p>
+    );
 
   return (
     <div className="flex flex-col gap-2 px-4 py-2 flex-grow">
       <div className="grid grid-cols-2 items-center">
-        <Label htmlFor="global-dominant-padding">
+        <DragNumberInputLabel
+          htmlFor="global-dominant-padding"
+          onSlide={(value) => {
+            setCurrentOptions({
+              ...currentOptions,
+              nonDominantPadding:
+                (currentOptions.nonDominantPadding ??
+                  options.globalNonDominantPadding) + value,
+            });
+          }}
+        >
           Non-Dominant Axis Padding
-        </Label>
+        </DragNumberInputLabel>
         <Input
           id="global-non-dominant-padding"
           value={
@@ -29,9 +51,6 @@ const ImagePaddingOptions: React.FunctionComponent<
             options.globalNonDominantPadding
           }
           onChange={(e) => {
-            console.log("onchange called");
-            console.log(e.target.value);
-            console.log(currentOptions);
             setCurrentOptions({
               ...currentOptions,
               nonDominantPadding: Number(e.target.value),
@@ -56,6 +75,15 @@ const ImagePaddingOptions: React.FunctionComponent<
           className="text-xs"
         />
       </div>
+      <Button
+        variant={"ghost"}
+        className="mt-4"
+        onClick={() => {
+          setCurrentOptions({});
+        }}
+      >
+        Reset Overrides
+      </Button>
     </div>
   );
 };
